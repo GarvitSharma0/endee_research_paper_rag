@@ -1,4 +1,4 @@
-WORK IN PROGRESS%%%
+WORK IN PROGRESS%%%-will be completed by 2-3-2026 EOD
 
 # Endee: High-Performance Open Source Vector Database
 
