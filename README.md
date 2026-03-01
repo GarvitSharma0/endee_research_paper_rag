@@ -79,82 +79,63 @@ schema = Schema(
     dimension=384,
     space_type=SpaceType.COSINE
 )
+```
+### 🔹 Storing Embeddings
 
-index = db.create_index(schema)
-🔹 Storing Embeddings
+- Each document chunk is embedded using **MiniLM**
+- The generated vector is stored inside **Endee**
+- Metadata stores the original text content for retrieval
 
-Each document chunk is embedded using MiniLM
+---
 
-The vector is stored inside Endee
+### 🔹 Similarity Search
 
-Metadata stores original text
-
-🔹 Similarity Search
-
-Query is embedded
-
-Top-K most similar vectors retrieved
-
-Retrieved text passed to LLM
+- The user query is embedded using the same embedding model
+- Top-K most similar vectors are retrieved from Endee
+- Retrieved text chunks are passed to the LLM
+- The LLM generates a context-aware answer
 
 Endee enables fast and scalable semantic search for this RAG system.
 
-⚙️ Setup Instructions
-1️⃣ Clone Repository
-git clone https://github.com/GarvitSharma0/endee_research_paper_rag.git
+---
+
+# ⚙️ Setup Instructions
+## 1️⃣ Clone Repository
+First, clone the project from GitHub and navigate into the project directory:
+
+Bash
+git clone [https://github.com/GarvitSharma0/endee_research_paper_rag.git](https://github.com/GarvitSharma0/endee_research_paper_rag.git)
 cd endee_research_paper_rag
-2️⃣ Install Dependencies
+## 2️⃣ Initialize Endee Index
+Use the following Python snippet to initialize your vector database:
+
+Python
+from endee import Endee
+from endee.schema import Schema
+from endee.constants import SpaceType
+
+db = Endee()
+
+# Initialize the schema for 384-dimension MiniLM embeddings
+schema = Schema(
+    name="research_index",
+    dimension=384,
+    space_type=SpaceType.COSINE
+)
+
+index = db.create_index(schema)
+## 3️⃣ Install Dependencies
+Install the required libraries:
+
+Bash
 pip install -r requirements.txt
-3️⃣ Install Ollama
+## 4️⃣ Configure Local LLM
+Ensure Ollama is installed, then pull the model:
 
-Download from:
-https://ollama.com
-
-Pull the required model:
-
+Bash
 ollama pull mistral
-4️⃣ Add Research Papers
+## 5️⃣ Run the Application
+Start the FastAPI server:
 
-Place your PDF files inside:
-
-/papers
-5️⃣ Run the Application
+Bash
 python -m uvicorn app:app --reload
-
-Open in browser:
-
-http://127.0.0.1:8000/docs
-
-Use the /ask endpoint to query your research papers.
-
-🧪 Example API Request
-{
-  "question": "What is the main contribution of this research paper?"
-}
-🔥 Key Features
-
-✅ Endee-powered vector search
-
-✅ Local LLM-based answer generation
-
-✅ Retrieval-Augmented Generation (RAG)
-
-✅ FastAPI REST interface
-
-✅ Fully reproducible setup
-
-📈 Future Improvements
-
-Add frontend UI
-
-Add multi-document filtering
-
-Add agentic workflows
-
-Deploy on cloud infrastructure
-
-Add evaluation metrics for retrieval quality
-
-👨‍💻 Author
-
-Garvit Sharma
