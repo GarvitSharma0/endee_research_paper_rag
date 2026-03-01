@@ -1,69 +1,73 @@
-🧠 Research Paper RAG using Endee Vector Database
-🚀 Project Overview
+# 🧠 Research Paper RAG System using Endee Vector Database
 
-This project implements a Retrieval-Augmented Generation (RAG) system for answering questions from research papers using:
+---
 
-🔍 Endee Vector Database
+## 🚀 Project Overview
 
-🤖 Ollama (Mistral LLM)
+This project implements a **Retrieval-Augmented Generation (RAG)** system that enables intelligent question-answering over research papers using:
 
-📄 LangChain for document processing
+- 🔍 **Endee Vector Database**
+- 🤖 **Ollama (Mistral LLM)**
+- 📄 **LangChain**
+- ⚡ **FastAPI**
 
-⚡ FastAPI backend
+The system performs semantic search over research documents and generates context-aware answers using a local Large Language Model.
 
-The system performs semantic search over research papers and generates context-aware answers using a local LLM.
+---
 
-🎯 Problem Statement
+## 🎯 Problem Statement
 
-Large research papers are difficult to search and query efficiently.
+Research papers are long and complex, making it difficult to quickly extract specific information.
 
 This project solves that by:
 
-Splitting research papers into semantic chunks
+1. Splitting research papers into semantic chunks  
+2. Converting text into vector embeddings  
+3. Storing embeddings in **Endee Vector Database**  
+4. Retrieving the most relevant chunks  
+5. Generating accurate answers using an LLM  
 
-Generating embeddings
+---
 
-Storing them in Endee Vector DB
+## 🏗️ System Architecture
 
-Retrieving relevant context
 
-Generating AI-powered answers
-
-🏗 System Architecture
-PDF Papers
-    ↓
+PDF Research Papers
+↓
 Text Splitting
-    ↓
+↓
 Embeddings (MiniLM)
-    ↓
+↓
 Endee Vector Database
-    ↓
-Similarity Search
-    ↓
+↓
+Similarity Search (Top-K Retrieval)
+↓
 Mistral LLM (Ollama)
-    ↓
+↓
 Generated Answer
-🛠 Tech Stack
-Component	Technology
-Backend	FastAPI
-Vector DB	Endee
-Embeddings	sentence-transformers/all-MiniLM-L6-v2
-LLM	Ollama (Mistral)
-Framework	LangChain
-🗄 How Endee Is Used
 
-Endee is used as the core vector database:
 
-Creating index with cosine similarity
+---
 
-Storing embedding vectors
+## 🛠️ Tech Stack
 
-Performing similarity search
+| Component        | Technology |
+|------------------|------------|
+| Backend API      | FastAPI |
+| Vector Database  | Endee |
+| Embeddings Model | sentence-transformers/all-MiniLM-L6-v2 |
+| LLM              | Ollama (Mistral) |
+| Framework        | LangChain |
 
-Returning top-K relevant documents
+---
 
-Example usage in code:
+## 🗄️ How Endee Is Used
 
+Endee acts as the **core semantic retrieval engine** in this project.
+
+### 🔹 Index Creation
+
+```python
 from endee import Endee
 from endee.schema import Schema
 from endee.constants import SpaceType
@@ -77,13 +81,28 @@ schema = Schema(
 )
 
 index = db.create_index(schema)
+🔹 Storing Embeddings
 
-Endee powers the semantic retrieval layer of this RAG system.
+Each document chunk is embedded using MiniLM
+
+The vector is stored inside Endee
+
+Metadata stores original text
+
+🔹 Similarity Search
+
+Query is embedded
+
+Top-K most similar vectors retrieved
+
+Retrieved text passed to LLM
+
+Endee enables fast and scalable semantic search for this RAG system.
 
 ⚙️ Setup Instructions
 1️⃣ Clone Repository
-git clone https://github.com/GarvitSharma0/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/GarvitSharma0/endee_research_paper_rag.git
+cd endee_research_paper_rag
 2️⃣ Install Dependencies
 pip install -r requirements.txt
 3️⃣ Install Ollama
@@ -91,44 +110,50 @@ pip install -r requirements.txt
 Download from:
 https://ollama.com
 
-Pull model:
+Pull the required model:
 
 ollama pull mistral
 4️⃣ Add Research Papers
 
-Place PDF files inside:
+Place your PDF files inside:
 
 /papers
-5️⃣ Run Application
+5️⃣ Run the Application
 python -m uvicorn app:app --reload
 
-Open:
+Open in browser:
 
 http://127.0.0.1:8000/docs
 
-Use /ask endpoint to query papers.
+Use the /ask endpoint to query your research papers.
 
-🧪 Example Query
+🧪 Example API Request
 {
   "question": "What is the main contribution of this research paper?"
 }
 🔥 Key Features
 
-✔ Endee vector search
-✔ Local LLM generation
-✔ Semantic similarity retrieval
-✔ Clean FastAPI API
-✔ Fully reproducible setup
+✅ Endee-powered vector search
 
-📌 Future Improvements
+✅ Local LLM-based answer generation
 
-Add UI frontend
+✅ Retrieval-Augmented Generation (RAG)
+
+✅ FastAPI REST interface
+
+✅ Fully reproducible setup
+
+📈 Future Improvements
+
+Add frontend UI
 
 Add multi-document filtering
 
 Add agentic workflows
 
-Deploy on cloud
+Deploy on cloud infrastructure
+
+Add evaluation metrics for retrieval quality
 
 👨‍💻 Author
 
